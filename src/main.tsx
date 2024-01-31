@@ -1,11 +1,14 @@
-import React from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import "@fontsource-variable/inter";
 
 import "./index.css";
-import App from "./App.tsx";
+import Root from "./Root.tsx";
+import { initRouter } from "./router";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <StrictMode>
+    <RouterProvider router={initRouter(Root)} />
+  </StrictMode>,
 );
