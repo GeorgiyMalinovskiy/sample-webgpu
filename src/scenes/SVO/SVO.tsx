@@ -1,11 +1,20 @@
-import { type FC, useEffect } from "react";
+import { type FC, useEffect, useRef } from "react";
 import { init } from "./scene";
 
 const SVO: FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    init();
+    if (canvasRef.current) {
+      const { width = 100, height = 100 } =
+        canvasRef.current.parentElement?.getBoundingClientRect() ?? {};
+      canvasRef.current.setAttribute("width", String(width));
+      canvasRef.current.setAttribute("height", String(height));
+
+      init(canvasRef.current);
+    }
   }, []);
-  return <>SVO</>;
+
+  return <canvas ref={canvasRef} />;
 };
 
 export default SVO;

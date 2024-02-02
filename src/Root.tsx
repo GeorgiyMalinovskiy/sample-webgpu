@@ -13,8 +13,8 @@ const Root: FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4 h-full">
-      <div>
+    <div className="grid grid-cols-3 h-full">
+      <div className="shadow-lg z-50">
         <ul role="list" className="h-full divide-y divide-gray-400 bg-gray-100">
           {routes.map(({ path }) => {
             return (
@@ -36,7 +36,7 @@ const Root: FC = () => {
           })}
         </ul>
       </div>
-      <div className="col-span-2">
+      <div className="col-span-2 z-0">
         <Outlet />
       </div>
     </div>
