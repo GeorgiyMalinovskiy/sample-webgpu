@@ -1,3 +1,5 @@
+const GRID_SIZE = 4;
+
 export const init = async (canvas: HTMLCanvasElement) => {
   const context = canvas.getContext("webgpu");
   if (context) {
@@ -28,6 +30,14 @@ export const init = async (canvas: HTMLCanvasElement) => {
         },
       ],
     };
+
+    const uniformArray = new Uint8Array([GRID_SIZE, GRID_SIZE]);
+    const uniformBuffer = device.createBuffer({
+      label: "Grid Uniforms",
+      size: uniformArray.byteLength,
+      usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+    });
+    device.queue.writeBuffer(uniformBuffer, 0, uniformArray);
 
     const cellShaderModule = device.createShaderModule({
       label: "Cell sharedr",
