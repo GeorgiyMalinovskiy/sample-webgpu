@@ -1,17 +1,27 @@
 import { type FC, useEffect, useRef } from "react";
 import { init } from "./scene";
 
+const resize = (canvas: HTMLCanvasElement | null) => {
+  console.log(canvas?.parentElement);
+
+  if (!canvas) return;
+
+  const { width = 100, height = 100 } =
+    canvas.parentElement?.getBoundingClientRect() ?? {};
+  canvas.setAttribute("width", String(600));
+  canvas.setAttribute("height", String(600));
+};
+
 const SVO: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
-    if (canvasRef.current) {
-      const { width = 100, height = 100 } =
-        canvasRef.current.parentElement?.getBoundingClientRect() ?? {};
-      canvasRef.current.setAttribute("width", String(width));
-      canvasRef.current.setAttribute("height", String(height));
+    const onResize = () => resize(canvasRef.current);
+    onResize();
+    window.addEventListener("resize", onResize);
 
-      init(canvasRef.current);
-    }
+    if (canvasRef.current) init(canvasRef.current);
+
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   return <canvas ref={canvasRef} />;
