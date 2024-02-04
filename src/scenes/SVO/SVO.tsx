@@ -2,14 +2,12 @@ import { type FC, useEffect, useRef } from "react";
 import { init } from "./scene";
 
 const resize = (canvas: HTMLCanvasElement | null) => {
-  console.log(canvas?.parentElement);
-
   if (!canvas) return;
 
   const { width = 100, height = 100 } =
     canvas.parentElement?.getBoundingClientRect() ?? {};
-  canvas.setAttribute("width", String(600));
-  canvas.setAttribute("height", String(600));
+  canvas.setAttribute("width", String(width));
+  canvas.setAttribute("height", String(height));
 };
 
 const SVO: FC = () => {
